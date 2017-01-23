@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 
+import java.io.IOException;
+
 public class NoteActivity extends AppCompatActivity {
 
     EditText editText;
@@ -33,6 +35,14 @@ public class NoteActivity extends AppCompatActivity {
         MainActivity.noteList.set(intent.getIntExtra("noteIdx", 0), editText.getText().toString());
 
         MainActivity.arrayAdapter.notifyDataSetChanged();
+
+        try {
+
+            MainActivity.sharedPreferences.edit().putString("noteList", ObjectSerializer.serialize(MainActivity.noteList)).apply();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

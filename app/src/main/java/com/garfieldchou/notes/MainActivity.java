@@ -1,8 +1,10 @@
 package com.garfieldchou.notes;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,12 +16,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     static ArrayList<String> noteList = new ArrayList<>();
     static ArrayAdapter arrayAdapter;
+    static SharedPreferences sharedPreferences;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,7 +58,21 @@ public class MainActivity extends AppCompatActivity {
 
         ListView noteListView = (ListView) findViewById(R.id.noteListView);
 
-        noteList.add("Example note");
+        sharedPreferences = this.getSharedPreferences("com.garfieldchou.notes", Context.MODE_PRIVATE);
+
+        try {
+
+            noteList = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("noteList", ObjectSerializer.serialize(new ArrayList<String>())));
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (noteList.size() == 0) {
+
+            noteList.add("Example note");
+
+        }
 
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, noteList);
 
@@ -88,7 +106,15 @@ public class MainActivity extends AppCompatActivity {
                                 noteList.remove(position);
 
                                 arrayAdapter.notifyDataSetChanged();
-                                
+
+                                try {
+
+                                    sharedPreferences.edit().putString("noteList", ObjectSerializer.serialize(noteList)).apply();
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
                             }
                         })
                         .setNegativeButton("NO", null)
