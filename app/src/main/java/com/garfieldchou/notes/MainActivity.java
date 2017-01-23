@@ -1,5 +1,6 @@
 package com.garfieldchou.notes;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -50,7 +51,13 @@ public class MainActivity extends AppCompatActivity {
         noteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), NoteActivity.class);
+
+                intent.putExtra("text", noteList.get(position));
+
+                startActivity(intent);
+
             }
         });
 
