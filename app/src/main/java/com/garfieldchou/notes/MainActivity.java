@@ -1,5 +1,6 @@
 package com.garfieldchou.notes;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -75,7 +76,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(MainActivity.this, "Item " + String.valueOf(position) + " was long pressed!", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Are you sure?")
+                        .setMessage("Do you want to delete this note?")
+                        .setPositiveButton("YES", null)
+                        .setNegativeButton("NO", null)
+                        .show();
+
                 return true;
             }
         });
