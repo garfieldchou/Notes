@@ -21,5 +21,7 @@ public class NoteActivity extends AppCompatActivity {
 
         editText.setText(noteText);
 
+        editText.setSelection(editText.getText().length());
+
     }
 }
