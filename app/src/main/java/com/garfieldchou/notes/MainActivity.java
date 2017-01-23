@@ -1,6 +1,7 @@
 package com.garfieldchou.notes;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -74,13 +75,22 @@ public class MainActivity extends AppCompatActivity {
 
         noteListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 new AlertDialog.Builder(MainActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Are you sure?")
                         .setMessage("Do you want to delete this note?")
-                        .setPositiveButton("YES", null)
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                noteList.remove(position);
+
+                                arrayAdapter.notifyDataSetChanged();
+                                
+                            }
+                        })
                         .setNegativeButton("NO", null)
                         .show();
 
