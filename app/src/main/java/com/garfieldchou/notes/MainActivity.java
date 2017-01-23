@@ -71,5 +71,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        noteListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(MainActivity.this, "Item " + String.valueOf(position) + " was long pressed!", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
     }
 }
