@@ -15,11 +15,9 @@ public class NoteActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String noteText = intent.getStringExtra("text");
-
         EditText editText = (EditText) findViewById(R.id.editText);
 
-        editText.setText(noteText);
+        editText.setText(MainActivity.noteList.get(intent.getIntExtra("noteIdx", 0)));
 
         editText.setSelection(editText.getText().length());
 

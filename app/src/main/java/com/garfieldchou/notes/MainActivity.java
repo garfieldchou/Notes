@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), NoteActivity.class);
 
-                intent.putExtra("text", noteList.get(position));
+                intent.putExtra("noteIdx", position);
 
                 startActivity(intent);
 
