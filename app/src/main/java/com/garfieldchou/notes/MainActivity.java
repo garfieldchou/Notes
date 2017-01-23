@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     static ArrayList<String> noteList = new ArrayList<>();
+    static ArrayAdapter arrayAdapter;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         noteList.add("Example note");
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, noteList);
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, noteList);
 
         noteListView.setAdapter(arrayAdapter);
 
