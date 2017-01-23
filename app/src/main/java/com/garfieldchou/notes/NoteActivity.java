@@ -9,13 +9,14 @@ import android.widget.EditText;
 public class NoteActivity extends AppCompatActivity {
 
     EditText editText;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
 
-        Intent intent = getIntent();
+        intent = getIntent();
 
         editText = (EditText) findViewById(R.id.editText);
 
@@ -29,9 +30,9 @@ public class NoteActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        MainActivity.noteList.set(0, editText.getText().toString());
+        MainActivity.noteList.set(intent.getIntExtra("noteIdx", 0), editText.getText().toString());
 
         MainActivity.arrayAdapter.notifyDataSetChanged();
-        
+
     }
 }

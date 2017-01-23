@@ -33,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
 
         Toast.makeText(this, "Add note", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getApplicationContext(), NoteActivity.class);
+
+        noteList.add("");
+
+        intent.putExtra("noteIdx", noteList.size()-1);
+
+        startActivity(intent);
+
         return true;
     }
 
